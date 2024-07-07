@@ -1,0 +1,18 @@
+Package: venn.tzh
+Type: Package
+Title: Tingting's Venn plot
+Version: 0.1.0
+Date: 2024-05-14
+Description: Tingting's Venn plot.
+Authors@R: c(person(given = 'Tingting', family = 'Zhan',
+      role = c('aut', 'cre', 'cph'), email =
+      c('tingtingzhan@gmail.com',
+      'tingting.zhan@jefferson.edu'), comment = c(ORCID =
+      '0000-0001-9971-4844')))
+Language: en-US
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Encoding: UTF-8
+License: GPL-2
+Depends: R (>= 4.4)
+Imports: VennDiagram
