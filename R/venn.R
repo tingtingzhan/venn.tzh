@@ -185,17 +185,6 @@ venn.matrix <- function(
   class(ret) <- c('venn', class(ret))
   return(ret)
   
-  # change zero counts to `'-'`
-  ret_cls <- vapply(ret, FUN = function(x) class(x)[1L], FUN.VALUE = '')
-  for (i in which(ret_cls == 'text')) {
-    if (identical(print.mode, c('percent')) && (ret[[i]]$label == '0%')) ret[[i]]$label <- '-'
-    if (identical(print.mode, c('raw')) && (ret[[i]]$label == '0')) ret[[i]]$label <- '-'
-    if (identical(print.mode, c('percent', 'raw')) && (ret[[i]]$label == '0%\n(0)')) ret[[i]]$label <- '-'
-    if (identical(print.mode, c('raw', 'percent')) && (ret[[i]]$label == '0\n(0%)')) ret[[i]]$label <- '-'
-  }
-  # end of change
-  
-  return(ret)
 }
 
 
