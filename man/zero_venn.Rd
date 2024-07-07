@@ -4,13 +4,17 @@
 \alias{zero_venn}
 \title{zero_venn}
 \usage{
-zero_venn(x, zero = "-")
+zero_venn(x, zero = "")
 }
 \arguments{
 \item{x}{a \link{venn} object}
 
-\item{zero}{\link[base]{character} scalar, label of zero counts. Default \code{'-'}}
+\item{zero}{\link[base]{character} scalar, label of zero counts.
+Default \code{''}}
 }
 \description{
 Simplify zero labels of a \link{venn} plot.
+}
+\details{
+Labels of subsets with zero counts are suppressed.
 }

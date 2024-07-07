@@ -5,39 +5,11 @@
 #' 
 #' @description
 #' 
-#' For students, encourage them to use \link[VennDiagram]{venn.diagram}.
+#' Minor modifications to function \link[VennDiagram]{venn.diagram}.
 #' 
-#' @param object ..
+#' @param object see *Usage*
 #' 
-#' @param ind \link[base]{logical} scalar (see \link[VennDiagram]{draw.pairwise.venn}),
-#' whether the function is to automatically draw the diagram before returning the \link[grid]{gList} object or not
-#' 
-#' @param lty \link[base]{character} scalar (see \link[VennDiagram]{draw.pairwise.venn}),
-#' line dash pattern of the circles' circumferences.
-#' Default `'blank'` disables circle circumference.
-#' 
-#' @param fill \link[base]{character} \link[base]{vector} (see \link[VennDiagram]{draw.pairwise.venn}), colors of the circles' areas.  
-#' Default \link[grDevices]{rainbow}
-#' 
-#' @param alpha \link[base]{numeric} scalar (see \link[VennDiagram]{draw.pairwise.venn}), transparency of the circles' areas
-#' 
-#' @param cex \link[base]{numeric} scalar (see \link[VennDiagram]{draw.pairwise.venn})
-#' 
-#' @param cat.col \link[base]{character} \link[base]{vector} (see \link[VennDiagram]{draw.pairwise.venn}), colors of the category names.
-#' Default value being the same as `fill`
-#' 
-#' @param cat.cex \link[base]{numeric} scalar (see \link[VennDiagram]{draw.pairwise.venn}), 
-#' size of the category names
-#' 
-#' @param cat.fontface \link[base]{character} scalar (see \link[VennDiagram]{draw.pairwise.venn}),
-#' font face of the category names.  Default `'bold'`
-#' 
-#' @param print.mode \link[base]{character} scalar or \link[base]{vector} (see \link[VennDiagram]{draw.pairwise.venn}),
-#' Default `c('percent', 'raw')`
-#' 
-#' @param cat.default.pos ..
-#' 
-#' @param ... additional parameters of \link[VennDiagram]{draw.pairwise.venn}, etc.
+#' @param ind,lty,fill,alpha,cex,cat.col,cat.cex,cat.fontface,print.mode,cat.default.pos,... see function \link[VennDiagram]{draw.pairwise.venn}
 #' 
 #' @details
 #' Workhorse of function [venn] is one of 
@@ -48,10 +20,8 @@
 #' or
 #' \link[VennDiagram]{draw.quintuple.venn}.
 #' 
-#' Labels of subsets with zero counts are suppressed and printed as `'-'`).
-#' 
 #' @returns 
-#' Function [venn] returns a \link[grid]{gList} object. 
+#' Function [venn] returns an S3 object `'venn'`, which inherits from class \link[grid]{gList}. 
 #' 
 #' @seealso 
 #' 
@@ -60,6 +30,7 @@
 #'
 #' @examples 
 #' plot(venn(list(a = rep(TRUE, times = 10L), b = sample(c(FALSE, TRUE), size = 10L, replace = TRUE))))
+#' 
 #' plot(venn(list(
 #'   A = state.name[1:30], 
 #'   B = state.name[20:45], 
@@ -139,11 +110,9 @@ venn.matrix <- function(
   }
   
   if (dim(object)[2L] > 1L) {
-    #cid <- (colSums(object) %in% c(0, dim(object)[1L])) # all-FALSE or all-TRUE columns
     cid <- (colSums(object) == 0) # all-FALSE columns
     if (all(cid)) return(invisible())
     if (any(cid)) {
-      #message('Remove all-TRUE or all-FALSE columns ', paste(sQuote(dimnames(object)[[2L]][cid]), collapse = ', '))
       message('Remove all-FALSE columns ', paste(sQuote(dimnames(object)[[2L]][cid]), collapse = ', '))
       object <- object[, !cid, drop = FALSE]
     }
@@ -198,10 +167,15 @@ venn.matrix <- function(
 #' 
 #' @param x a [venn] object
 #' 
-#' @param zero \link[base]{character} scalar, label of zero counts. Default `'-'`
+#' @param zero \link[base]{character} scalar, label of zero counts. 
+#' Default `''`
+#' 
+#' @details
+#' Labels of subsets with zero counts are suppressed.
+#' 
 #' 
 #' @export
-zero_venn <- function(x, zero = '-') {
+zero_venn <- function(x, zero = '') {
   if (!is.character(zero) || length(zero) != 1L || is.na(zero)) stop('illegal zero label')
   cls_ <- vapply(x, FUN = function(i) class(i)[1L], FUN.VALUE = '')
   for (i in which(cls_ == 'text')) {

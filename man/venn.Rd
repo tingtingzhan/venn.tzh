@@ -29,43 +29,15 @@ venn(object, ...)
 )
 }
 \arguments{
-\item{object}{..}
+\item{object}{see \emph{Usage}}
 
-\item{...}{additional parameters of \link[VennDiagram]{draw.pairwise.venn}, etc.}
-
-\item{ind}{\link[base]{logical} scalar (see \link[VennDiagram]{draw.pairwise.venn}),
-whether the function is to automatically draw the diagram before returning the \link[grid]{gList} object or not}
-
-\item{lty}{\link[base]{character} scalar (see \link[VennDiagram]{draw.pairwise.venn}),
-line dash pattern of the circles' circumferences.
-Default \code{'blank'} disables circle circumference.}
-
-\item{fill}{\link[base]{character} \link[base]{vector} (see \link[VennDiagram]{draw.pairwise.venn}), colors of the circles' areas.
-Default \link[grDevices]{rainbow}}
-
-\item{alpha}{\link[base]{numeric} scalar (see \link[VennDiagram]{draw.pairwise.venn}), transparency of the circles' areas}
-
-\item{cex}{\link[base]{numeric} scalar (see \link[VennDiagram]{draw.pairwise.venn})}
-
-\item{cat.col}{\link[base]{character} \link[base]{vector} (see \link[VennDiagram]{draw.pairwise.venn}), colors of the category names.
-Default value being the same as \code{fill}}
-
-\item{cat.fontface}{\link[base]{character} scalar (see \link[VennDiagram]{draw.pairwise.venn}),
-font face of the category names.  Default \code{'bold'}}
-
-\item{cat.cex}{\link[base]{numeric} scalar (see \link[VennDiagram]{draw.pairwise.venn}),
-size of the category names}
-
-\item{print.mode}{\link[base]{character} scalar or \link[base]{vector} (see \link[VennDiagram]{draw.pairwise.venn}),
-Default \code{c('percent', 'raw')}}
-
-\item{cat.default.pos}{..}
+\item{ind, lty, fill, alpha, cex, cat.col, cat.cex, cat.fontface, print.mode, cat.default.pos, ...}{see function \link[VennDiagram]{draw.pairwise.venn}}
 }
 \value{
-Function \link{venn} returns a \link[grid]{gList} object.
+Function \link{venn} returns an S3 object \code{'venn'}, which inherits from class \link[grid]{gList}.
 }
 \description{
-For students, encourage them to use \link[VennDiagram]{venn.diagram}.
+Minor modifications to function \link[VennDiagram]{venn.diagram}.
 }
 \details{
 Workhorse of function \link{venn} is one of
@@ -75,10 +47,10 @@ Workhorse of function \link{venn} is one of
 \link[VennDiagram]{draw.quad.venn},
 or
 \link[VennDiagram]{draw.quintuple.venn}.
-
-Labels of subsets with zero counts are suppressed and printed as \code{'-'}).
 }
 \examples{
+plot(venn(list(a = rep(TRUE, times = 10L), b = sample(c(FALSE, TRUE), size = 10L, replace = TRUE))))
+
 plot(venn(list(
   A = state.name[1:30], 
   B = state.name[20:45], 
