@@ -59,6 +59,7 @@
 #' function [venn.matrix].
 #'
 #' @examples 
+#' plot(venn(list(a = rep(TRUE, times = 10L), b = sample(c(FALSE, TRUE), size = 10L, replace = TRUE))))
 #' plot(venn(list(
 #'   A = state.name[1:30], 
 #'   B = state.name[20:45], 
@@ -138,10 +139,12 @@ venn.matrix <- function(
   }
   
   if (dim(object)[2L] > 1L) {
-    cid <- (colSums(object) %in% c(0, dim(object)[1L])) # all-FALSE or all-TRUE columns
+    #cid <- (colSums(object) %in% c(0, dim(object)[1L])) # all-FALSE or all-TRUE columns
+    cid <- (colSums(object) == 0) # all-FALSE columns
     if (all(cid)) return(invisible())
     if (any(cid)) {
-      message('Remove all-TRUE or all-FALSE columns ', paste(sQuote(dimnames(object)[[2L]][cid]), collapse = ', '))
+      #message('Remove all-TRUE or all-FALSE columns ', paste(sQuote(dimnames(object)[[2L]][cid]), collapse = ', '))
+      message('Remove all-FALSE columns ', paste(sQuote(dimnames(object)[[2L]][cid]), collapse = ', '))
       object <- object[, !cid, drop = FALSE]
     }
   }
