@@ -49,18 +49,18 @@ or
 \link[VennDiagram]{draw.quintuple.venn}.
 }
 \examples{
-plot(venn(list(a = rep(TRUE, times = 10L), b = sample(c(FALSE, TRUE), size = 10L, replace = TRUE))))
+venn(list(a = rep(TRUE, times = 10L), b = sample(c(FALSE, TRUE), size = 10L, replace = TRUE)))
 
-plot(venn(list(
+venn(list(
   A = state.name[1:30], 
   B = state.name[20:45], 
-  C = state.name[c(15:40, 46:50)])))
+  C = state.name[c(15:40, 46:50)]))
 
-plot(venn(list(
+venn(list(
   A = state.name[1:20], 
   B = state.name[2:21], 
   C = state.name[3:22],
-  D = state.name[4:23])))
+  D = state.name[4:23]))
 
 }
 \seealso{

@@ -29,18 +29,18 @@
 #' function [venn.matrix].
 #'
 #' @examples 
-#' plot(venn(list(a = rep(TRUE, times = 10L), b = sample(c(FALSE, TRUE), size = 10L, replace = TRUE))))
+#' venn(list(a = rep(TRUE, times = 10L), b = sample(c(FALSE, TRUE), size = 10L, replace = TRUE)))
 #' 
-#' plot(venn(list(
+#' venn(list(
 #'   A = state.name[1:30], 
 #'   B = state.name[20:45], 
-#'   C = state.name[c(15:40, 46:50)])))
+#'   C = state.name[c(15:40, 46:50)]))
 #' 
-#' plot(venn(list(
+#' venn(list(
 #'   A = state.name[1:20], 
 #'   B = state.name[2:21], 
 #'   C = state.name[3:22],
-#'   D = state.name[4:23])))
+#'   D = state.name[4:23]))
 #'
 #' @importFrom grDevices rainbow
 #' @importFrom VennDiagram draw.single.venn draw.pairwise.venn draw.triple.venn draw.quad.venn draw.quintuple.venn
@@ -97,7 +97,6 @@ venn.matrix <- function(
     ...
 ) {
   if (anyNA(object)) stop('do not allow missing in \'matrix\' input for Venn diagram')
-  # object <- force_bool(object, else_return = stop('cannot convert to binary matrix')) # dont want to include my [force_bool]
   if (typeof(object) != 'logical') stop('input must be binary/logical matrix')
   if (!length(object)) return(invisible())
   
@@ -189,11 +188,32 @@ zero_venn <- function(x, zero = '') {
   return(x)
 }
 
-
+#' @title Plot [venn] Object
+#' 
+#' @param x a [venn] object
+#' 
+#' @param ... additional parameters, currently not in use
+#' 
+#' @return 
+#' Function [plot.venn] does not have a returned value.
+#' 
 #' @importFrom grid grid.newpage grid.draw
+#' @export plot.venn
 #' @export
 plot.venn <- function(x, ...) {
   grid.newpage()
   grid.draw(zero_venn(x))
 }
 
+#' @title Print [venn] Object
+#' 
+#' @param x a [venn] object
+#' 
+#' @param ... additional parameters, currently not in use
+#' 
+#' @return 
+#' Function [print.venn] does not have a returned value.
+#' 
+#' @export print.venn
+#' @export
+print.venn <- function(x, ...) plot.venn(x, ...)
