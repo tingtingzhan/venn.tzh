@@ -159,10 +159,10 @@ venn.matrix <- function(
 }
 
 
-#' @title zero_venn
+#' @title Simplify Zero-Labels of [venn] Plot
 #' 
 #' @description
-#' Simplify zero labels of a [venn] plot.
+#' Simplify zero-labels of a [venn] plot.
 #' 
 #' @param x a [venn] object
 #' 
@@ -171,7 +171,6 @@ venn.matrix <- function(
 #' 
 #' @details
 #' Labels of subsets with zero counts are suppressed.
-#' 
 #' 
 #' @export
 zero_venn <- function(x, zero = '') {

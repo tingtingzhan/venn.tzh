@@ -2,7 +2,7 @@
 % Please edit documentation in R/venn.R
 \name{zero_venn}
 \alias{zero_venn}
-\title{zero_venn}
+\title{Simplify Zero-Labels of \link{venn} Plot}
 \usage{
 zero_venn(x, zero = "")
 }
@@ -13,7 +13,7 @@ zero_venn(x, zero = "")
 Default \code{''}}
 }
 \description{
-Simplify zero labels of a \link{venn} plot.
+Simplify zero-labels of a \link{venn} plot.
 }
 \details{
 Labels of subsets with zero counts are suppressed.
