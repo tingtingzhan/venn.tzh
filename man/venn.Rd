@@ -49,19 +49,11 @@ or
 \link[VennDiagram]{draw.quintuple.venn}.
 }
 \examples{
-venn(list(a = rep(TRUE, times = 10L), b = sample(c(FALSE, TRUE), size = 10L, replace = TRUE)))
-
-venn(list(
-  A = state.name[1:30], 
-  B = state.name[20:45], 
-  C = state.name[c(15:40, 46:50)]))
-
 venn(list(
   A = state.name[1:20], 
   B = state.name[2:21], 
   C = state.name[3:22],
   D = state.name[4:23]))
-
 }
 \seealso{
 \link[VennDiagram]{venn.diagram} does handle \link[base]{list} input, but not as elegantly as

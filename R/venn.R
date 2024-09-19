@@ -29,19 +29,11 @@
 #' function [venn.matrix].
 #'
 #' @examples 
-#' venn(list(a = rep(TRUE, times = 10L), b = sample(c(FALSE, TRUE), size = 10L, replace = TRUE)))
-#' 
-#' venn(list(
-#'   A = state.name[1:30], 
-#'   B = state.name[20:45], 
-#'   C = state.name[c(15:40, 46:50)]))
-#' 
 #' venn(list(
 #'   A = state.name[1:20], 
 #'   B = state.name[2:21], 
 #'   C = state.name[3:22],
 #'   D = state.name[4:23]))
-#'
 #' @importFrom grDevices rainbow
 #' @importFrom VennDiagram draw.single.venn draw.pairwise.venn draw.triple.venn draw.quad.venn draw.quintuple.venn
 #' @importFrom stats setNames
@@ -56,16 +48,20 @@ venn <- function(object, ...) {
 #' @export venn.list
 #' @export
 venn.list <- function(object, ...) {
-  cls <- lapply(object, FUN = class)
-  if (!all(duplicated.default(cls)[-1L])) stop('all elements of the list must be the same class')
-  cls <- cls[[1L]]
-  obj <- if (cls == 'logical') {
+  typ <- vapply(object, FUN = typeof, FUN.VALUE = '')
+  if (!all(duplicated.default(typ)[-1L])) stop('all elements of `object` must be the same typeof')
+  obj <- switch(typ[1L], logical = {
+    ns <- lengths(object, use.names = FALSE)
+    if (!all(duplicated.default(ns)[-1L])) stop('all \'logical\' elements of `object` must be of same length')
     do.call(cbind, args = object)
-  } else {
-    if (anyNA(object, recursive = TRUE)) stop('each element of input list must not contain NA')
-    if (!length(nm <- names(object)) || !all(nzchar(nm))) stop('input list must be fully named')
+  }, character =, integer =, numeric = { 
+    # 'character'
+    # 'integer' is typeof \link[base]{factor}
+    # 'numeric' also here as some `ptid` are stored as numeric 
+    if (anyNA(object, recursive = TRUE)) stop('each element of `object` must not contain NA')
+    if (!length(nm <- names(object)) || !all(nzchar(nm))) stop('`object` must be fully named')
     do.call(cbind, args = lapply(object, FUN = `%in%`, x = unique.default(unlist(object, use.names = FALSE))))
-  }
+  }, stop(sQuote(typ[1L]), ' not supported'))
   venn.matrix(obj, ...)
 }
 
@@ -97,7 +93,7 @@ venn.matrix <- function(
     ...
 ) {
   if (anyNA(object)) stop('do not allow missing in \'matrix\' input for Venn diagram')
-  if (typeof(object) != 'logical') stop('input must be binary/logical matrix')
+  if (typeof(object) != 'logical') stop('`object` must be binary/logical matrix')
   if (!length(object)) return(invisible())
   
   rid <- (rowSums(object) == 0) # all-FALSE rows
@@ -171,6 +167,9 @@ venn.matrix <- function(
 #' 
 #' @details
 #' Labels of subsets with zero counts are suppressed.
+#' 
+#' @returns
+#' Function [zero_venn] returns a [venn] object.
 #' 
 #' @export
 zero_venn <- function(x, zero = '') {

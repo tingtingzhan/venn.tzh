@@ -12,6 +12,9 @@ zero_venn(x, zero = "")
 \item{zero}{\link[base]{character} scalar, label of zero counts.
 Default \code{''}}
 }
+\value{
+Function \link{zero_venn} returns a \link{venn} object.
+}
 \description{
 Simplify zero-labels of a \link{venn} plot.
 }

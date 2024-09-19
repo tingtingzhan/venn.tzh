@@ -4,9 +4,9 @@
 #' @description
 #' Method dispatch to [venn] for S3 generic `rmd_` (in a different master package).
 #' 
-#' @param x a [venn]
+#' @param x a [venn] object
 #' 
-#' @param xnm \link[base]{language} or \link[base]{character} scalar, call of `x`
+#' @param xnm \link[base]{character} scalar, \link[base]{deparse}d call of `x`
 #' 
 #' @param ... additional parameters, currently not in use
 #' 

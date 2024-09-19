@@ -7,9 +7,9 @@
 rmd_.venn(x, xnm, ...)
 }
 \arguments{
-\item{x}{a \link{venn}}
+\item{x}{a \link{venn} object}
 
-\item{xnm}{\link[base]{language} or \link[base]{character} scalar, call of \code{x}}
+\item{xnm}{\link[base]{character} scalar, \link[base]{deparse}d call of \code{x}}
 
 \item{...}{additional parameters, currently not in use}
 }
