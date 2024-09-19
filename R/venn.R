@@ -54,10 +54,10 @@ venn.list <- function(object, ...) {
     ns <- lengths(object, use.names = FALSE)
     if (!all(duplicated.default(ns)[-1L])) stop('all \'logical\' elements of `object` must be of same length')
     do.call(cbind, args = object)
-  }, character =, integer =, numeric = { 
+  }, character =, integer =, double = { 
     # 'character'
-    # 'integer' is typeof \link[base]{factor}
-    # 'numeric' also here as some `ptid` are stored as numeric 
+    # 'integer', typeof \link[base]{factor}
+    # 'double', some `ptid` are stored as \link[base]{numeric} 
     if (anyNA(object, recursive = TRUE)) stop('each element of `object` must not contain NA')
     if (!length(nm <- names(object)) || !all(nzchar(nm))) stop('`object` must be fully named')
     do.call(cbind, args = lapply(object, FUN = `%in%`, x = unique.default(unlist(object, use.names = FALSE))))
