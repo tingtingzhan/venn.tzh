@@ -9,6 +9,11 @@
 #' 
 #' @param object see *Usage*
 #' 
+#' @param palette \link[base]{character} scalar, color palette to use.
+#' Default `'ggplot'` uses the default color palette as seen in package \CRANpkg{ggplot2},
+#' with workhorse function \link[scales]{pal_hue}.
+#' Other options are '`rainbow`' with workhorse function \link[grDevices]{rainbow}.
+#' 
 #' @param ind,lty,fill,alpha,cex,cat.col,cat.cex,cat.fontface,print.mode,cat.default.pos,... see function \link[VennDiagram]{draw.pairwise.venn}
 #' 
 #' @details
@@ -33,8 +38,12 @@
 #'   A = state.name[1:20], 
 #'   B = state.name[2:21], 
 #'   C = state.name[3:22],
-#'   D = state.name[4:23]))
-#' @importFrom grDevices rainbow
+#'   D = state.name[4:23])) # more friendly to naked eye
+#' venn(list(
+#'   A = state.name[1:20], 
+#'   B = state.name[2:21], 
+#'   C = state.name[3:22],
+#'   D = state.name[4:23]), palette = 'rainbow')
 #' @importFrom VennDiagram draw.single.venn draw.pairwise.venn draw.triple.venn draw.quad.venn draw.quintuple.venn
 #' @importFrom stats setNames
 #' @name venn
@@ -75,14 +84,18 @@ venn.data.frame <- function(object, ...) {
 }
 
 #' @rdname venn
+#' @importFrom grDevices rainbow
+#' @importFrom scales pal_hue
 #' @importFrom utils combn
 #' @export venn.matrix
 #' @export
 venn.matrix <- function(
     object,
+    #fill = rainbow(n = n_cat), 
+    palette = c('ggplot', 'rainbow'),
     ind = FALSE, 
     lty = 'blank',
-    fill = rainbow(n = n_cat), 
+    fill = switch(match.arg(palette), ggplot = pal_hue(), rainbow = rainbow)(n = n_cat),
     alpha = .25,
     cex = 1,
     cat.col = fill,
@@ -137,17 +150,11 @@ venn.matrix <- function(
     '4' = draw.quad.venn, '5' = draw.quintuple.venn,
     stop('cannot draw Venn diagram for 6 or more categories')
   ), args = c(ag1, ag2, list(
-    cat.default.pos	= cat.default.pos,
     print.mode = print.mode,
     ind = ind, lty = lty, 
     fill = fill, 
-    alpha = alpha, 
-    cex = cex, 
-    cat.col = fill, 
-    cat.fontface = cat.fontface,
-    cat.cex = cat.cex, 
-    ...
-  )))
+    alpha = alpha, cex = cex, 
+    cat.default.pos	= cat.default.pos, cat.col = cat.col, cat.fontface = cat.fontface, cat.cex = cat.cex, ...)))
   
   class(ret) <- c('venn', class(ret))
   return(ret)

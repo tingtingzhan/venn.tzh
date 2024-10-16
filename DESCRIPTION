@@ -15,4 +15,4 @@ RoxygenNote: 7.3.2
 Encoding: UTF-8
 License: GPL-2
 Depends: R (>= 4.4)
-Imports: VennDiagram
+Imports: VennDiagram, scales
