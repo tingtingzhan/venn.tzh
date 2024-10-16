@@ -16,7 +16,7 @@ rmd_.venn <- function(x, xnm, ...) {
   # .. is 'gList', but I do not want to hide it (as for 'gDesc')
   # .. does not have ?base::dim
   return(c(
-    sprintf(fmt = 'Venn diagram of %s are created using <u>**`R`**</u> package <u>**`VennDiagram`**</u>.', paste(sQuote(category_venn(x)), collapse = ', ')),
+    sprintf(fmt = 'Venn diagram of %s are created using <u>**`R`**</u> package <u>**`VennDiagram`**</u>.', paste0('`', category_venn(x), '`', collapse = ', ')),
     '```{r results = \'asis\'}', 
     sprintf(fmt = 'grid::grid.draw(venn.tzh::zero_venn(%s))', xnm), # my [plot.venn]
     '```'
