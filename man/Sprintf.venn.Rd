@@ -4,12 +4,10 @@
 \alias{Sprintf.venn}
 \title{Sprintf.venn}
 \usage{
-Sprintf.venn(model, ...)
+Sprintf.venn(x)
 }
 \arguments{
-\item{model}{a \link{venn} object}
-
-\item{...}{additional parameters, currently not in use}
+\item{x}{a \link{venn} object}
 }
 \value{
 Function \link{Sprintf.venn} returns a \link[base]{character} scalar.
