@@ -18,8 +18,10 @@ rmd_.venn <- function(x, xnm, ...) {
   return(c(
     sprintf(fmt = 'Venn diagram is created using <u>**`R`**</u> package <u>**`VennDiagram`**</u>.'),
     '',
-    '```{r results = \'asis\'}', 
-    sprintf(fmt = 'grid::grid.draw(venn.tzh::zero_venn(%s))', xnm), # my [plot.venn]
+    # '```{r results = \'asis\'}', 
+    '```{r}', 
+    #sprintf(fmt = '%s |> venn.tzh::zero_venn() |> grid::grid.draw()', xnm), # my [plot.venn]
+    sprintf(fmt = 'venn.tzh::plot.venn(%s)', xnm),
     '```'
   ))
 }

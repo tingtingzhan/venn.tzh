@@ -13,7 +13,7 @@
 #' @export
 plot.venn <- function(x, ...) {
   grid.newpage()
-  grid.draw(zero_venn(x))
+  x |> zero_venn() |> grid.draw()
 }
 
 
